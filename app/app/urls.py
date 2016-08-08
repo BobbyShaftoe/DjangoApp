@@ -16,7 +16,18 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from dashing import utils
+from dashing.utils import router
+
+from .widgets import NewClientsWidget
+
+router.register(NewClientsWidget, 'new_users_widget')
+
+
 urlpatterns = [
-    url(r'^base/', include ('base.urls')),
+    url(r'^$', include('base.urls')),
+    url(r'^base/', include ('base.urls'), name='base'),
     url(r'^admin/', admin.site.urls),
+    url(r'^dashboard/', include(router.urls), name='dashboard'), 
 ]
+
